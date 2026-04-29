@@ -4,7 +4,7 @@
 
 ## 文档索引
 
-- 开放平台接入：获取调用接口令牌 access_token：[access_token.md](file:///workspace/providers/yonyoucloud/open-platform/access_token.md)
+- 开放平台接入：获取调用接口令牌 access_token：[access_token.md](./open-platform/access_token.md)
 - YonBIP 税务服务 · 开票申请（EinvoiceApply）API 列表：见下方清单
 
 ## YonBIP · 税务服务 · 开票申请（EinvoiceApply）
@@ -48,4 +48,4 @@
 
 ### 已整理
 
-- Issue Blue Invoice：[issue-blue-invoice.md](file:///workspace/providers/yonyoucloud/yonbip/tax/einvoiceapply/issue-blue-invoice.md)
+- Issue Blue Invoice：[issue-blue-invoice.md](./yonbip/tax/einvoiceapply/issue-blue-invoice.md)
