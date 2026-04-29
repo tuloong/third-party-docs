@@ -10,10 +10,10 @@
 
 ## 基本信息
 
-- API 名称：Issue Blue Invoice
-- API 类目：开票申请（EinvoiceApply）
-- 产品：税务服务（YonBIP）
-- 更新时间：2026-01-08 15:34:18
+- apiId：2150785412886953993
+- API 类目：开票申请
+- 产品：税务服务
+- 更新时间：2026-01-08 15:34:18.000
 - 请求方法：POST
 - Content-Type：application/json
 - 接口路径：/yonbip/tax/invoiceclient-web/api/invoiceApply/insertWithJsonArray
@@ -24,7 +24,7 @@
 
 | 名称 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| access_token | string | 是 | 接口令牌；获取方式见“开放平台接入文档”中的 access_token |
+| access_token | string | 是 | 接口令牌 access_token |
 
 ### Body 参数（Top Level）
 
@@ -32,91 +32,243 @@ Body 为 JSON，顶层为 `data`。
 
 | 字段 | 类型 | 数组 | 必填 | 说明 |
 | --- | --- | --- | --- | --- |
-| data.einvoiceApplyList | object | 是 | 否 | 开票请求体（重要：此请求体是增值税基础票种；特殊票种参考请求示例） |
+| data.einvoiceApplyList | object | 是 | 否 | 开票请求体(重要：：此请求体是增值税基础票种的请求体，特殊票种的请求体参考请求示例中的内容) |
 | data.emailConfigList | object | 是 | 否 | 邮箱交付信息 |
 | data.smsConfigList | object | 是 | 否 | 短信交付信息 |
-| data.urlConfigList | object | 是 | 否 | URL 交付信息 |
+| data.urlConfigList | object | 是 | 否 | url交付信息 |
 | data.auditReturnConfigs | object | 是 | 否 | 退回地址信息 |
-| data.autoAudit | boolean | 否 | 否 | 自动审核；false 表示不自动审核（需要人工确认），不传默认 true |
+| data.autoAudit | boolean | 否 | 否 | 自动审核，即不需要人工在发票平台确认开票，直接进行开票 false:不自动审核，即需要人工确认如果不传，代表true |
 
-更完整的字段明细在接口详情接口的 `data.paramDTOS` 中（字段非常多，建议在本地脚本解析后落库）。
+更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
 
 ## 请求示例
 
-请求示例（已做脱敏/占位，完整示例可见来源接口的 `requestParamsDemo` 字段）：
-
-```http
-POST /yonbip/tax/invoiceclient-web/api/invoiceApply/insertWithJsonArray?access_token=<ACCESS_TOKEN>
-Content-Type: application/json
-```
-
-```json
-{
-  "data": {
-    "einvoiceApplyList": [
-      {
-        "fplx": "32",
-        "xsfDzdh": "Beijing XX 83869965",
-        "xsfYh": "China Merchants Bank",
-        "xsfZh": "9645555111254",
-        "gmfDh": "01055587444",
-        "allElcUserName": "<REDACTED>",
-        "allElcPassWord": "<REDACTED>",
-        "items": [
-          {
-            "xmmc": "",
-            "xmje": 0,
-            "xmjshj": 0
-          }
-        ]
-      }
-    ],
-    "emailConfigList": [
-      {
-        "fpqqlsh": "",
-        "address": ""
-      }
-    ],
-    "smsConfigList": [
-      {
-        "fpqqlsh": "",
-        "address": ""
-      }
-    ],
-    "urlConfigList": [
-      {
-        "fpqqlsh": "",
-        "url": ""
-      }
-    ],
-    "auditReturnConfigs": [
-      {
-        "fpqqlsh": "",
-        "url": ""
-      }
-    ],
-    "autoAudit": true
-  }
+```text
+Url: /<TENANT_PREFIX>/yonbip/tax/invoiceclient-web/api/invoiceApply/insertWithJsonArray?access_token=<ACCESS_TOKEN>
+Body: {
+	"data": {
+		"einvoiceApplyList": [
+			{
+				"orgcode": "",
+				"lyid": "",
+				"fpqqlsh": "",
+				"fplx": "",
+				"sdLc": "",
+				"tspz": "",
+				"zsfs": "",
+				"xsfNsrsbh": "",
+				"xsfMc": "",
+				"xsfDzdh": "北京市XX 83869965",
+				"xsfDz": "北京市XX",
+				"xsfDh": "83869965",
+				"xsfYh": "招商银行",
+				"xsfZh": "9645555111254",
+				"gmfNsrsbh": "",
+				"gmfMc": "",
+				"gmfDzdh": "",
+				"gmfYhzh": "",
+				"gmfDz": "北京市XX",
+				"gmfDh": "01055587444",
+				"gmfYh": "招商银行",
+				"gmfZh": "596874512",
+				"zrrbs": "Y",
+				"zjlx": "101",
+				"zjhm": "123123123",
+				"guoji": "004",
+				"einvoiceShowGxfYhZh": "0",
+				"einvoiceShowSkrShr": "0",
+				"einvoiceShowGxfDzDh": "0",
+				"dfgtgmbz": "Y",
+				"kpr": "",
+				"skr": "",
+				"fhr": "",
+				"hjje": 0,
+				"hjse": 0,
+				"jshj": 0,
+				"bz": "",
+				"allElcUserName": "<REDACTED>",
+				"allElcPassWord": "<REDACTED>",
+				"slsm": "",
+				"zdybz": "",
+				"projectCode": "",
+				"acountOrgCode": "",
+				"wbsCode": "",
+				"lydjh": "",
+				"bmbBbh": "",
+				"wxorderid": "",
+				"wxappid": "",
+				"wxauthid": "",
+				"sgbz": "",
+				"cpyqylb": "",
+				"tdzzsxmbh": "",
+				"bdcdz": "",
+				"zlqq": "",
+				"zlqz": "",
+				"kdsbz": "",
+				"kqysssxbgglbm": "",
+				"tspzs": {
+					"ysmxxh": "",
+					"ysgjzl": "",
+					"ysgjph": "",
+					"qyd": "",
+					"ddd": "",
+					"yshwmc": "",
+					"cxrxh": "",
+					"cxr": "",
+					"chuxrq": "",
+					"cxrzjlxDm": "",
+					"sfzjhm": "",
+					"cfd": "",
+					"lkddd": "",
+					"zwdj": "",
+					"jtgjlxDm": ""
+				},
+				"bdcxsTspzs": {
+					"ysmxxh": "",
+					"ysgjzl": "",
+					"ysgjph": "",
+					"qyd": "",
+					"ddd": "",
+					"yshwmc": "",
+					"cxrxh": "",
+					"cxr": "",
+					"chuxrq": "",
+					"cxrzjlxDm": "",
+					"sfzjhm": "",
+					"cfd": "",
+					"lkddd": "",
+					"zwdj": "",
+					"jtgjlxDm": ""
+				},
+				"cepzs": {
+					"xh": "",
+					"pzlx": "",
+					"fphm": "",
+					"fpdm": "",
+					"zzfphm": "",
+					"pzhm": "",
+					"kjrq": "",
+					"hjje": "",
+					"kce": "",
+					"bz": "",
+					"ly": "",
+					"bckcje": 0,
+					"pzhjje": 0
+				},
+				"mqkfrl": "",
+				"gjql": "",
+				"gzwhjhff": "",
+				"ticketNumber": "",
+				"buyerType": "",
+				"fareAmount": "",
+				"orderNumber": "",
+				"userName": "",
+				"gpCode": "",
+				"passengerName": "",
+				"passengerIdnum": "",
+				"endorsements": "",
+				"office": "",
+				"issuedBy": "",
+				"iata": "",
+				"pnr": "",
+				"ticketInformation": "",
+				"insurance": "",
+				"electronicTicketType": "",
+				"verifyCode": "",
+				"overdueFlag": "",
+				"lylx": "",
+				"define": "{            \"特征key\":\"特征值示例 选填\"     },",
+				"items": [
+					{
+						"hh": "",
+						"zkhhh": "",
+						"fphxz": "",
+						"xmbm": "",
+						"xmmc": "",
+						"spbm": "",
+						"ggxh": "",
+						"dw": "",
+						"xmsl": "",
+						"xmdj": "",
+						"xmhsdj": "",
+						"xmje": 0,
+						"xmjshj": 0,
+						"sl": "",
+						"se": "",
+						"kce": "",
+						"zxbm": "",
+						"yhzcbs": "",
+						"lslbs": "",
+						"zzstsgl": "",
+						"detailMotor": {
+							"cqzsbh": "",
+							"jzfwfsd": "",
+							"jzxmmc": ""
+						},
+						"define": {
+							"特征key": "特征值示例 选填"
+						}
+					}
+				]
+			}
+		],
+		"emailConfigList": [
+			{
+				"fpqqlsh": "",
+				"address": ""
+			}
+		],
+		"smsConfigList": [
+			{
+				"fpqqlsh": "",
+				"address": ""
+			}
+		],
+		"urlConfigList": [
+			{
+				"fpqqlsh": "",
+				"url": ""
+			}
+		],
+		"auditReturnConfigs": [
+			{
+				"fpqqlsh": "",
+				"url": ""
+			}
+		],
+		"autoAudit": true
+	}
 }
 ```
 
-## 返回参数
+## 返回示例
 
-页面展示的返回参数结构：
+### 正确返回
 
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| code | string | 返回码（示例：200） |
-| message | string | 返回信息（示例：success） |
-| data | object | 响应数据 |
+```json
+{
+	"code": "200",
+	"data": {},
+	"message": "success"
+}
+```
 
-## 错误码（页面展示）
+### 错误返回
+
+```json
+{
+
+	"code": "9999",
+
+	"message": "数据不合法"
+
+}
+```
+
+## 错误码
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 1002 | Data does not exist | 数据不存在 |
-| 9999 | Invalid data | 返回错误信息可能包含多个信息片段（例如：税号未开通某类发票等） |
+| 1002 | Data does not exist | Data does not exist |
+| 9999 | Invalid data | The returned error code contains multiple pieces of information. For example: The taxpayer with taxpayer identification number 111222333456333 has not enabled VAT electronic normal invoices, this function is temporarily unavailable. |
 
-## 变更记录（页面展示）
-
-- 2026-01-09：New Request Parameter (37) / Update Request Parameter (17) / Delete Request Parameter (17)
