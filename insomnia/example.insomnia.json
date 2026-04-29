@@ -1,0 +1,32 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-04-29T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2026.1.0",
+  "resources": [
+    {
+      "_id": "wrk_example",
+      "_type": "workspace",
+      "name": "Example Provider",
+      "description": "Template workspace for third-party integration testing"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "parentId": "wrk_example",
+      "name": "Base Environment",
+      "data": {
+        "baseUrl": "https://example-staging.api.your-vendor.com"
+      }
+    },
+    {
+      "_id": "req_health",
+      "_type": "request",
+      "parentId": "wrk_example",
+      "name": "Health Check",
+      "method": "GET",
+      "url": "{{ baseUrl }}/health",
+      "headers": []
+    }
+  ]
+}
