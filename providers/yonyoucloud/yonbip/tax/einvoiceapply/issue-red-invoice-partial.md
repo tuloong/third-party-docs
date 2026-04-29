@@ -22,24 +22,66 @@
 
 ### Query 参数
 
-| 名称 | 类型 | 必填 | 说明 |
+| 参数名 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | access_token | string | 是 | 接口令牌 access_token |
 
-### Body 参数（Top Level）
+### Body 参数
 
-Body 为 JSON，顶层为 `data`。
-
-| 字段 | 类型 | 数组 | 必填 | 说明 |
-| --- | --- | --- | --- | --- |
-| data.autoAudit | boolean | 否 | 否 | Automatic review, meaning invoicing is done directly on the invoice platform without manual confirmation. false: no automatic review, manual confirmation is required. If not provided, it defaults to true. |
-| data.einvoiceApplyList | object | 是 | 否 | Invoice Request Body |
-| data.emailConfigList | object | 是 | 否 | Email Delivery Information |
-| data.smsConfigList | object | 是 | 否 | SMS Delivery Information |
-| data.urlConfigList | object | 是 | 否 | URL Delivery Information |
-| data.auditReturnConfigs | object | 是 | 否 | Return Address Information |
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| 字段路径 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| data | object | 否 | Data Body |
+| data.autoAudit | boolean | 否 | Automatic review, meaning invoicing is done directly on the invoice platform without manual confirmation. false: no automatic review, manual confirmation is required. If not provided, it defaults to true. |
+| data.einvoiceApplyList[] | object | 否 | Invoice Request Body |
+| data.einvoiceApplyList[].orgcode | string | 否 | Tax Organization Code  <br>If one tax number corresponds to multiple tax organizations (associated invoicing site records), this field is mandatory to determine the unique tax organization (associated invoicing site record). |
+| data.einvoiceApplyList[].fpqqlsh | string | 否 | Invoice Request Serial Number  <br>Note: This is not the invoice request serial number for blue invoices, but the request serial number for the current invoice red flush. |
+| data.einvoiceApplyList[].fplx | string | 否 | Invoice Type  <br>Only for electronic invoice red flush tax control invoices is this mandatory, and the invoice type must be specified as an electronic invoice type;  <br>1: VAT Electronic Normal Invoice;  <br>2: VAT Electronic Special Invoice;  <br>3: VAT Normal Invoice;  <br>4: VAT Special Invoice;  <br>5: Motor Vehicle Sales Unified Invoice;  <br>8: VAT Electronic Normal Invoice (Refined Oil);  <br>10: Refined Oil Normal Invoice;  <br>11: Refined Oil Special Invoice;  <br>15: Used Car Sales Unified Invoice;  <br>31: Electronic Special Invoice;  <br>32: Electronic Normal Invoice;  <br>33: Electronic Paper Invoice (VAT Special Invoice);  <br>34: Electronic Paper Invoice (Normal Invoice);  <br>Optional, default is 1 |
+| data.einvoiceApplyList[].fpDm | string | 否 | Invoice Code, Invoice Code of the Voided Invoice |
+| data.einvoiceApplyList[].fpHm | string | 是 | Invoice Number Invoice Number of the Voided Invoice |
+| data.einvoiceApplyList[].hcyy | string | 否 | Red Flush Reason Explanation: 1 Sales Return 2 Invoice Error 3 Invoice Cancellation 4 Sales Allowance; (Red flush reason is mandatory for digital invoices)  <br>Red flush reason is mandatory for digital invoices. When the invoice type is (VAT Normal Invoice, VAT Electronic Normal Invoice, VAT Normal Invoice (Roll), VAT Electronic Normal Invoice (Refined Oil), VAT Normal Invoice (Refined Oil), VAT Normal Invoice (Purchase), Electronic Purchase Invoice, Digital Special Invoice, Digital Normal Invoice), the red flush reason must be filled in. |
+| data.einvoiceApplyList[].hzxxbbh | string | 否 | Red Letter Information Form Number: Mandatory for special invoice red flush; not required for digital special invoice red flush at present. |
+| data.einvoiceApplyList[].xsfNsrsbh | string | 否 | Seller Taxpayer Identification Number  <br>If a tax number is associated with only one tax organization (associated invoicing site record), only the seller's tax number needs to be transmitted; either the seller's tax number or the tax organization code must be provided. |
+| data.einvoiceApplyList[].gmfMc | string | 否 | Buyer |
+| data.einvoiceApplyList[].gmfNsrsbh | string | 否 | Buyer Taxpayer ID No. |
+| data.einvoiceApplyList[].kpr | string | 否 | Billed By |
+| data.einvoiceApplyList[].skr | string | 否 | Payee |
+| data.einvoiceApplyList[].fhr | string | 否 | Reviewed By |
+| data.einvoiceApplyList[].slsm | string | 否 | 1: When a Small-scale Taxpayer issues an invoice with a 3% tax rate, a tax rate explanation must be provided;  <br>2: If invoices have been issued previously and sales discounts, cancellations, or returns occur, a red-letter invoice must be issued, or if there is an error in invoicing, a re-issuance is required;  <br>3: Due to actual business needs, the policy of enjoying the reduced VAT levy rate of 1% is waived. |
+| data.einvoiceApplyList[].allElcUserName | string | 否 | Full Electric Login Username |
+| data.einvoiceApplyList[].allElcPassWord | string | 否 | Full Electric Login Password |
+| data.einvoiceApplyList[].lydjh | string | 否 | Source Document Number |
+| data.einvoiceApplyList[].define | object | 否 | Custom Characteristic Item |
+| data.einvoiceApplyList[].jshj | number | 是 | Amount Including Tax |
+| data.einvoiceApplyList[].hjje | number | 否 | Total Amount |
+| data.einvoiceApplyList[].hjse | number | 否 | Total Tax Amount |
+| data.einvoiceApplyList[].lyid | string | 否 | Request Source Unique Identifier |
+| data.einvoiceApplyList[].bmbBbh | string | 否 | Code Table Version Number |
+| data.einvoiceApplyList[].items[] | object | 否 | Detail Object |
+| data.einvoiceApplyList[].items[].hh | string | 否 | Line number Required when there is a discount |
+| data.einvoiceApplyList[].items[].xmmc | string | 是 | Project Name |
+| data.einvoiceApplyList[].items[].xmbm | string | 否 | Project Code |
+| data.einvoiceApplyList[].items[].ggxh | string | 否 | Specification |
+| data.einvoiceApplyList[].items[].dw | string | 否 | Unit |
+| data.einvoiceApplyList[].items[].xmsl | string | 否 | Item Quantity |
+| data.einvoiceApplyList[].items[].xmdj | number | 否 | Item Unit Price |
+| data.einvoiceApplyList[].items[].xmje | number | 否 | Item Amount |
+| data.einvoiceApplyList[].items[].xmjshj | number | 否 | Item Amount Including Tax |
+| data.einvoiceApplyList[].items[].sl | number | 否 | Tax Rate |
+| data.einvoiceApplyList[].items[].se | number | 否 | Tax Amount |
+| data.einvoiceApplyList[].items[].spbm | string | 是 | Product Code |
+| data.einvoiceApplyList[].items[].define | object | 否 | Characteristic Value |
+| data.emailConfigList[] | object | 否 | Email Delivery Information |
+| data.emailConfigList[].fpqqlsh | string | 否 | The invoice request serial number should be consistent with the one in the above einvoiceApplyList. |
+| data.emailConfigList[].address | string | 否 | Email |
+| data.smsConfigList[] | object | 否 | SMS Delivery Information |
+| data.smsConfigList[].fpqqlsh | string | 否 | The invoice request serial number should be consistent with the one in the above einvoiceApplyList. |
+| data.smsConfigList[].address | string | 否 | Mobile No. |
+| data.urlConfigList[] | object | 否 | URL Delivery Information |
+| data.urlConfigList[].fpqqlsh | string | 否 | The invoice request serial number should be consistent with the one in the above einvoiceApplyList. |
+| data.urlConfigList[].url | string | 否 | Callback Address |
+| data.auditReturnConfigs[] | object | 否 | Return Address Information |
+| data.auditReturnConfigs[].fpqqlsh | string | 否 | The invoice request serial number should be consistent with the one in the above einvoiceApplyList. |
+| data.auditReturnConfigs[].url | string | 否 | Return Address |
 
 ## 请求示例
 
@@ -120,6 +162,17 @@ Body: {
 	}
 }
 ```
+
+## 返回参数说明
+
+| 字段路径 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| code | string | 否 | Status Code |
+| code | string | 否 | Status Code |
+| message | string | 否 | Information |
+| message | string | 否 | Information |
+| data | string | 否 | Response Information |
+| data | string | 否 | Response Information |
 
 ## 返回示例
 

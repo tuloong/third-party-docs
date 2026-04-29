@@ -22,17 +22,9 @@
 
 ### Query 参数
 
-| 名称 | 类型 | 必填 | 说明 |
+| 参数名 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | access_token | string | 是 | 接口令牌 access_token |
-
-### Body 参数（Top Level）
-
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
 
 ## 请求示例
 
@@ -595,6 +587,59 @@ requestdatas=[ {
 }]
  }]
 ```
+
+## 返回参数说明
+
+| 字段路径 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| code | string | 否 | Return processing status value |
+| message | string | 否 | Return processing information |
+| data | object | 否 | Return the split data; return parameters based on actual conditions, some parameters may not be displayed. |
+| data.bmbBbh | string | 否 | Code Table Number |
+| data.bz | string | 否 | Remarks |
+| data.corpId | string | 否 | Tenant ID |
+| data.fhr | string | 否 | Reviewer |
+| data.fpjz | string | 否 | Invoice medium: 0 - Electronic invoice; 1 - Paper invoice. |
+| data.fplx | string | 否 | Invoice Type: 1: VAT Electronic Normal Invoice; 2: VAT Electronic Special Invoice; 3: VAT Normal Invoice; 4: VAT Special Invoice; 5: Unified Invoice for Motor Vehicle Sales; 8: VAT Electronic Normal Invoice (Refined Oil); 10: Normal Invoice for Refined Oil; 11: Special Invoice for Refined Oil; 15: Unified Invoice for Second-Hand Vehicle Sales; 31: Special Invoice for Digital Products; 32: Normal Invoice for Digital Products; 33: Paper Invoice for Digital Products (VAT Special Invoice); 34: Paper Invoice for Digital Products (Normal Invoice); |
+| data.fpqqlsh | string | 否 | Invoice request serial number |
+| data.fpzt | string | 否 | Invoice Status: 0-Normal, 1-Out of Control, 2-Cancelled, 3-Red Invoice, 4-Exception |
+| data.gmfDzdh | string | 否 | Buyer Address Phone |
+| data.gmfMc | string | 否 | Buyer Name |
+| data.gmfNsrsbh | string | 否 | Purchaser's Taxpayer Identification Number |
+| data.gmfYhzh | string | 否 | Buyer's bank account number |
+| data.hjje | BigDecimal | 否 | Total Amount |
+| data.hjse | BigDecimal | 否 | Total Tax Amount |
+| data.id | string | 否 | id |
+| data.jshj | BigDecimal | 否 | Total Price Including Tax |
+| data.kplx | string | 否 | Invoice Type: 0 Blue Invoice, 1 Red Invoice |
+| data.kpr | string | 否 | Invoicer |
+| data.lylx | string | 否 | Source Type: 1 - Manual issuance, 2 - Interface input, 3 - Local file import, 4 - QR code scanning, 9 - WeChat Mini Program |
+| data.orgId | string | 否 | Organization ID |
+| data.orgcode | string | 否 | Invoicing Site Code; View in Invoicing Site File |
+| data.skr | string | 否 | Payee |
+| data.splitInvoice | boolean | 否 | Split Mark |
+| data.xsfDzdh | string | 否 | Seller's Address and Phone Number |
+| data.xsfYhzh | string | 否 | Seller's bank account number |
+| data.zdrq | string | 否 | Document Date; yyyy-MM-dd |
+| data.zsfs | string | 否 | Taxation Method: 0 - Normal Taxation 2 - Differential Taxation |
+| data.items[] | object | 否 | Subtable Information |
+| data.items[].dw | string | 否 | Unit |
+| data.items[].fphxz | string | 否 | Invoice Line Nature: 0 Normal Line 1 Discount Line 2 Discounted Line |
+| data.items[].ggxh | string | 否 | Specification Model |
+| data.items[].hh | string | 否 | Line number |
+| data.items[].hid | string | 否 | Main table ID |
+| data.items[].id | string | 否 | id |
+| data.items[].kce | number | 否 | Deduction Amount |
+| data.items[].se | number | 否 | Tax amount |
+| data.items[].sl | number | 否 | Tax Rate |
+| data.items[].spbm | string | 否 | Product Tax Category Code |
+| data.items[].xmdj | BigDecimal | 否 | Project Unit Price |
+| data.items[].xmhsdj | BigDecimal | 否 | Project tax-included unit price |
+| data.items[].xmje | BigDecimal | 否 | Project Amount |
+| data.items[].xmjshj | BigDecimal | 否 | Project total including tax |
+| data.items[].xmmc | string | 否 | Project Name |
+| data.items[].xmsl | number | 否 | Project Quantity |
+| data.items[].zkhhh | string | 否 | Discount line number |
 
 ## 返回示例
 

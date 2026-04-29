@@ -22,23 +22,40 @@
 
 ### Query 参数
 
-| 名称 | 类型 | 必填 | 说明 |
+| 参数名 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
+| access_token | string | 是 | 接口令牌 access_token |
 | xmmc | string | 是 | Product Name |
-
-### Body 参数（Top Level）
-
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
 
 ## 请求示例
 
 ```text
 Url: /yonbip/tax/api/etax/aiMatchSpInfo?access_token=<ACCESS_TOKEN>&xmmc=水果
 ```
+
+## 返回参数说明
+
+| 字段路径 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| code | string | 否 | Status Code |
+| message | string | 否 | Operation Information |
+| datas[] | object | 否 | Matching Results |
+| datas[].slvList[] | string | 否 | Tax Rate Set |
+| datas[].spsjbm | string | 否 | Actual Product Code |
+| datas[].zzscezsbj | string | 否 | VAT differential taxation mark |
+| datas[].spfwjc | string | 否 | Product/Service Abbreviation |
+| datas[].qyrq | string | 否 | Activation Date |
+| datas[].sphfwssflhbbm | string | 否 | Product and Service Tax Classification Combined Code |
+| datas[].sfhzx | string | 否 | Is it a summary item? |
+| datas[].sfbzsbz | string | 否 | Non-taxable flag |
+| datas[].zslList[] | string | 否 | Collection Rate Set |
+| datas[].sm | string | 否 | Description |
+| datas[].zt | string | 否 | Status |
+| datas[].zzsslhzzsl | string | 否 | ??? |
+| datas[].zzstsglList[] | string | 否 | Special Management Collection of VAT |
+| datas[].zsljh | string | 否 | Collection Rate |
+| datas[].hyjh | string | 否 | ??? |
+| datas[].hwhlwmc | string | 否 | Name of goods or services |
 
 ## 返回示例
 

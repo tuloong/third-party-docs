@@ -22,23 +22,29 @@
 
 ### Query 参数
 
-| 名称 | 类型 | 必填 | 说明 |
+| 参数名 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
+| access_token | string | 是 | 接口令牌 access_token |
 | fpqqlsh | string | 是 | Invoice request serial number |
-
-### Body 参数（Top Level）
-
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
 
 ## 请求示例
 
 ```text
 Url: /yonbip/tax/api/invoiceApply/V4/queryInvoiceStatus?access_token=<ACCESS_TOKEN>
 ```
+
+## 返回参数说明
+
+| 字段路径 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| code | string | 否 | Return status code |
+| message | string | 否 | Return Information |
+| data | object | 否 | Return data |
+| data.fpqqlsh | string | 否 | Invoice request serial number |
+| data.statuscode | string | 否 | Invoice Status Code 1 - Pending Invoice (requires confirmation from the invoicing staff); 2 - Invoicing; 3 - Invoice Failed; 4 - Invoice Successful |
+| data.status | string | 否 | Invoice Status: Pending Invoice; Invoicing; Invoice Failed; Invoice Successful |
+| data.errmsg | string | 否 | Invoice failure details: When the invoice status is failed, this section contains detailed information. |
+| data.bsstatus | string | 否 | Layout status: 0 - Layout redrawn successfully; 1 - Layout failed (Layout failed, no PDF in data) |
 
 ## 返回示例
 

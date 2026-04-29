@@ -22,23 +22,22 @@
 
 ### Query 参数
 
-| 名称 | 类型 | 必填 | 说明 |
+| 参数名 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | access_token | string | 是 | 接口令牌 access_token |
-
-### Body 参数（Top Level）
-
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
 
 ## 请求示例
 
 ```text
 Url: /yonbip/tax/invoiceclient-web/api/invoiceApply/del?access_token=<ACCESS_TOKEN>
 ```
+
+## 返回参数说明
+
+| 字段路径 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| code | string | 否 | Status Code |
+| message | string | 否 | Operation Information |
 
 ## 返回示例
 

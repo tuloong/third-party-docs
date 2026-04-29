@@ -22,24 +22,118 @@
 
 ### Query 参数
 
-| 名称 | 类型 | 必填 | 说明 |
+| 参数名 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | access_token | string | 是 | 接口令牌 access_token |
 
-### Body 参数（Top Level）
+### Body 参数
 
-Body 为 JSON，顶层为 `data`。
-
-| 字段 | 类型 | 数组 | 必填 | 说明 |
-| --- | --- | --- | --- | --- |
-| data.einvoiceApplyList | object | 是 | 否 | 开票请求体(重要：：此请求体是增值税基础票种的请求体，特殊票种的请求体参考请求示例中的内容) |
-| data.email | object | 否 | 否 | 邮箱交付信息 |
-| data.sms | object | 否 | 否 | 短信交付信息 |
-| data.url | object | 否 | 否 | url交付信息 |
-| data.delurl | object | 否 | 否 | 退回地址信息 |
-| data.autoAudit | boolean | 否 | 否 | 自动审核，即不需要人工在发票平台确认开票，直接进行开票 false:不自动审核，即需要人工确认如果不传，代表true |
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| 字段路径 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| data | object | 是 | 参数体 |
+| data.einvoiceApplyList[] | object | 否 | 开票请求体(重要：：此请求体是增值税基础票种的请求体，特殊票种的请求体参考请求示例中的内容) |
+| data.einvoiceApplyList[].fpqqlsh | string | 是 | 发票请求流水号 |
+| data.einvoiceApplyList[].fplx | string | 否 | 发票类型：1：增值税电子普通发票；2：增值税电子专用发票；3：增值税普通发票；4：增值税专用发票 ；5：机动车销售统一发票；8：增值税电子普通发票（成品油）；10：成品油普通发票；11：成品油专用发票；15：二手车销售统一发票；31：数电专用发票；32：数电普通发票；33：数电纸质发票(增值税专用发票)；34：数电纸质发票(普通发票)；选填  默认为1 |
+| data.einvoiceApplyList[].xsfNsrsbh | string | 是 | 销售方纳税人识别号 |
+| data.einvoiceApplyList[].xsfMc | string | 否 | 销售方名称 |
+| data.einvoiceApplyList[].gmfDzdh | string | 否 | 购买方地址电话 |
+| data.einvoiceApplyList[].gmfYhzh | string | 否 | 购买方银行账号 |
+| data.einvoiceApplyList[].kpr | string | 否 | 开票人 |
+| data.einvoiceApplyList[].skr | string | 否 | 收款人 |
+| data.einvoiceApplyList[].fhr | string | 否 | 复核人 |
+| data.einvoiceApplyList[].jshj | string | 否 | 价税合计 |
+| data.einvoiceApplyList[].hjje | string | 否 | 合计金额 |
+| data.einvoiceApplyList[].hjse | string | 否 | 合计税额 |
+| data.einvoiceApplyList[].bz | string | 否 | 备注 |
+| data.einvoiceApplyList[].bmbBbh | string | 否 | 商品编码表版本 |
+| data.einvoiceApplyList[].orgcode | string | 否 | 开票点编码 当销售方纳税人识别号只有一个开票点时可不填，有多个时必填 |
+| data.einvoiceApplyList[].wxorderid | string | 否 | 微信订单号 |
+| data.einvoiceApplyList[].wxappid | string | 否 | 微信商户appid |
+| data.einvoiceApplyList[].wxauthid | string | 否 | 微信批量插入 |
+| data.einvoiceApplyList[].zdybz | string | 否 | 自定义备注 |
+| data.einvoiceApplyList[].define | object | 否 | 自定义特征项 |
+| data.einvoiceApplyList[].xsfDz | string | 否 | 销售方地址 |
+| data.einvoiceApplyList[].xsfDh | string | 否 | 销售方电话 |
+| data.einvoiceApplyList[].xsfYh | string | 否 | 销售方银行 |
+| data.einvoiceApplyList[].xsfZh | string | 否 | 销售方账号 |
+| data.einvoiceApplyList[].gmfNsrsbh | string | 否 | 购买方纳税人识别号 |
+| data.einvoiceApplyList[].gmfDz | string | 否 | 购买方地址 |
+| data.einvoiceApplyList[].gmfDh | string | 否 | 购买方电话 |
+| data.einvoiceApplyList[].gmfYh | string | 否 | 购买方银行 |
+| data.einvoiceApplyList[].gmfZh | string | 否 | 购买方账号 |
+| data.einvoiceApplyList[].gmfMc | string | 否 | 购买方名称 |
+| data.einvoiceApplyList[].lyid | string | 是 | 请求方唯一识别号 |
+| data.einvoiceApplyList[].lydjh | string | 否 | 来源单据号 |
+| data.einvoiceApplyList[].lylx | string | 否 | 来源类型 |
+| data.einvoiceApplyList[].cepzs | object | 否 | 差额征税-差额开票的凭证信息列表 |
+| data.einvoiceApplyList[].cepzs.xh | string | 否 | 序号 |
+| data.einvoiceApplyList[].cepzs.pzlx | string | 否 | 10-专用发票、11-普通发票、12-海关进口增值税专用缴款书、13-航空运输电子客票行程单、14-铁路电子客票、15-税收完税证明（契税）、16-中央非税收入统一票据（土地出让金）、05-财政票据、06-法院裁决书、09-其他扣除凭证； 原凭证类型：01-数电票、02-增值税专用发票、03-增值税普通发票、04-营业税发票、07-契税完税凭证、08-其他发票类，税局已经在20251230作废不再使用。 |
+| data.einvoiceApplyList[].cepzs.fphm | string | 否 | 数电发票号码，当凭证类型为10-专用发票”、11-普通发票且为数电发票时，数电发票号码必填。当凭证类型为13-航空运输电子客票行程单、14-铁路电子客票时，数电发票号码必填。 |
+| data.einvoiceApplyList[].cepzs.fpdm | string | 否 | 发票代码，当凭证类型为10-专用发票”、11-普通发票且为税控发票时，发票代码必填；当凭证类型为16-中央非税收入统一票据（土地出让金）时，发票代码必填。 |
+| data.einvoiceApplyList[].cepzs.zzfphm | string | 否 | 发票号码，当凭证类型为10-专用发票”、11-普通发票且为税控发票时，发票号码必填。 |
+| data.einvoiceApplyList[].cepzs.pzhm | string | 否 | 凭证号码，当凭证类型为 12-海关进口增值税专用缴款书、15-税收完税证明（契税）、16-中央非税收入统一票据（土地出让金）、05-财政票据、06-法院裁决书时，凭证号码必填。 |
+| data.einvoiceApplyList[].cepzs.kjrq | string | 否 | 开具日期，当凭证类型为10-专用发票、11-普通发票、13-航空运输电子客票行程单、14-铁路电子客票时必填。格式要求示例：2025-12-23 |
+| data.einvoiceApplyList[].cepzs.hjje | string | 否 | 合计金额 |
+| data.einvoiceApplyList[].cepzs.kce | string | 否 | 扣除额 |
+| data.einvoiceApplyList[].cepzs.bz | string | 否 | 凭证备注，当凭证类型为09-其他扣除凭证时，凭证备注可填写：劳务派遣员工工资、福利、为其办理社会保险及住房公积金。当开票方税号为乐企通道且凭证类型为“其他扣除凭证”时，备注必填。 |
+| data.einvoiceApplyList[].cepzs.ly | string | 否 | 录入方式，取值范围如下：手工录入 勾选录入 模板录入 |
+| data.einvoiceApplyList[].cepzs.bckcje | number | 否 | 本次扣除金额 |
+| data.einvoiceApplyList[].cepzs.pzhjje | number | 否 | 凭证合计金额 |
+| data.einvoiceApplyList[].tspzs | object | 否 | 特殊票种 |
+| data.einvoiceApplyList[].tspzs.ysmxxh | string | 否 | 运输明细序号 |
+| data.einvoiceApplyList[].tspzs.ysgjzl | string | 否 | 运输工具种类 |
+| data.einvoiceApplyList[].tspzs.ysgjph | string | 否 | 运输工具牌号 |
+| data.einvoiceApplyList[].tspzs.qyd | string | 否 | 起运地 |
+| data.einvoiceApplyList[].tspzs.ddd | string | 否 | 到达地 |
+| data.einvoiceApplyList[].tspzs.yshwmc | string | 否 | 运输货物名称 |
+| data.einvoiceApplyList[].tspzs.cxrxh | string | 否 | 出行人序号 |
+| data.einvoiceApplyList[].tspzs.cxr | string | 否 | 出行人 |
+| data.einvoiceApplyList[].tspzs.chuxrq | string | 否 | 出行日期 |
+| data.einvoiceApplyList[].tspzs.cxrzjlxDm | string | 否 | 出行人证件类型代码 |
+| data.einvoiceApplyList[].tspzs.sfzjhm | string | 否 | 身份证件号码 |
+| data.einvoiceApplyList[].tspzs.cfd | string | 否 | 出发地 |
+| data.einvoiceApplyList[].tspzs.lkddd | string | 否 | 到达地 |
+| data.einvoiceApplyList[].tspzs.zwdj | string | 否 | 座位等级若交通工具为火车、飞机、船舶，则该要素为必填，其他选项选填； ---交通工具为火车：一等座、二等座、软席（软座、软卧）、硬席（硬座、硬卧）  ---交通工作为飞机： 经济舱、头等舱、公务舱 ---交通工具为船舶： 一等舱、二等舱 、三等舱 |
+| data.einvoiceApplyList[].tspzs.jtgjlxDm | string | 否 | 交通工具类型代码（1：飞机 2：火车 3：长途汽车 4：公共交通 5：出租车 6：汽车 7：船舶 9：其他） |
+| data.einvoiceApplyList[].items[] | object | 否 | 待开票明细 |
+| data.einvoiceApplyList[].items[].fphxz | string | 否 | 发票行性质 0正常行 1折扣行 2被折扣行 |
+| data.einvoiceApplyList[].items[].xmmc | string | 是 | 项目名称 |
+| data.einvoiceApplyList[].items[].xmbm | string | 否 | 项目编码 如果项目名称为空，会根据项目编码匹配云平台的商品档案 |
+| data.einvoiceApplyList[].items[].ggxh | string | 否 | 规格型号 |
+| data.einvoiceApplyList[].items[].dw | string | 否 | 单位 |
+| data.einvoiceApplyList[].items[].xmsl | string | 否 | 项目数量 |
+| data.einvoiceApplyList[].items[].xmhsdj | string | 否 | 项目含税单价 |
+| data.einvoiceApplyList[].items[].xmdj | string | 否 | 项目单价 |
+| data.einvoiceApplyList[].items[].xmje | string | 否 | 项目金额 |
+| data.einvoiceApplyList[].items[].xmjshj | string | 否 | 项目价税合计 |
+| data.einvoiceApplyList[].items[].sl | string | 否 | 税率 |
+| data.einvoiceApplyList[].items[].se | string | 否 | 税额 |
+| data.einvoiceApplyList[].items[].hh | string | 否 | 行号 选填 有折扣时必输 |
+| data.einvoiceApplyList[].items[].zkhhh | string | 否 | 折扣行行号 选填：有折扣时必输 |
+| data.einvoiceApplyList[].items[].spbm | string | 否 | 商品的税收分类编码 |
+| data.einvoiceApplyList[].items[].zxbm | string | 否 | 自行编码 |
+| data.einvoiceApplyList[].items[].yhzcbs | string | 否 | 销售优惠标识：0：不使用，1：使用 |
+| data.einvoiceApplyList[].items[].lslbs | string | 否 | 税率标识 ：空：非零利率，0：出口退税，1：免税，2：不征收，3普通零税率 |
+| data.einvoiceApplyList[].items[].zzstsgl | string | 否 | 增值税特殊管理 |
+| data.einvoiceApplyList[].items[].kce | string | 否 | 扣除额 |
+| data.einvoiceApplyList[].items[].define | object | 否 | 特征值 |
+| data.einvoiceApplyList[].items[].detailMotor | object | 否 | 明细标识 |
+| data.einvoiceApplyList[].items[].detailMotor.cqzsbh | string | 否 | 产权证书/不动产权证号 |
+| data.einvoiceApplyList[].items[].detailMotor.jzfwfsd | string | 否 | 建筑服务发生地 |
+| data.einvoiceApplyList[].items[].detailMotor.jzxmmc | string | 否 | 建筑项目名称 |
+| data.email | object | 否 | 邮箱交付信息 |
+| data.email.fpqqlsh | string | 否 | 发票请求流水号和上方einvoiceApplyList中的保持一致 |
+| data.email.address | string | 否 | 邮箱地址 |
+| data.sms | object | 否 | 短信交付信息 |
+| data.sms.fpqqlsh | string | 否 | 发票请求流水号和上方einvoiceApplyList中的保持一致 |
+| data.sms.address | string | 否 | 手机号 |
+| data.url | object | 否 | url交付信息 |
+| data.url.fpqqlsh | string | 否 | 发票请求流水号和上方einvoiceApplyList中的保持一致 |
+| data.url.url | string | 否 | 回调地址 |
+| data.delurl | object | 否 | 退回地址信息 |
+| data.delurl.fpqqlsh | string | 否 | 发票请求流水号和上方einvoiceApplyList中的保持一致 |
+| data.delurl.url | string | 否 | 退回地址 |
+| data.autoAudit | boolean | 否 | 自动审核，即不需要人工在发票平台确认开票，直接进行开票 false:不自动审核，即需要人工确认如果不传，代表true |
 
 ## 请求示例
 
@@ -604,6 +698,14 @@ Body: {
 }]
  }]
 ```
+
+## 返回参数说明
+
+| 字段路径 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| code | string | 否 | 返回值编码 |
+| datas | string | 否 | 响应信息 |
+| message | string | 否 | 信息说明 |
 
 ## 返回示例
 
