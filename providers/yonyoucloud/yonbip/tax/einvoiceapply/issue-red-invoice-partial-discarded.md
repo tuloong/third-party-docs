@@ -107,14 +107,21 @@ requestdatas=[{
 &autoAudit="自动审核，即不需要人工在发票平台确认开票，直接进行开票 false:不自动审核，即需要人工确认如果不传，代表true"
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200/0000: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "200",
-	"message": "success"
+    "code": "200",
+    "message": "success"
 }
 ```
 
@@ -122,8 +129,8 @@ requestdatas=[{
 
 ```json
 {
-	"code": "1001",
-	"message": "价税合计必须小于0"
+    "code": "1001",
+    "message": "价税合计必须小于0"
 }
 ```
 
@@ -131,5 +138,5 @@ requestdatas=[{
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 1001 | The total price including tax must be less than 0. | Please confirm the total amount including tax. |
+| 1001 | 价税合计必须小于0 / The total price including tax must be less than 0 | 红字发票价税合计应为负数，请确认金额 |
 

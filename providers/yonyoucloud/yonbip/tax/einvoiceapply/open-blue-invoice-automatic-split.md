@@ -605,15 +605,23 @@ Body: {
  }]
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
+| datas | string/object | 业务数据（自动拆分后会返回拆分后的发票信息） |
 
 ### 正确返回
 
 ```json
 {
-	"code": "200",
-	"datas": "操作成功",
-	"message": "success"
+    "code": "200",
+    "datas": "操作成功",
+    "message": "success"
 }
 ```
 
@@ -621,8 +629,8 @@ Body: {
 
 ```json
 {
-	"code": "9999",
-	"message": "数据不合法"
+    "code": "9999",
+    "message": "数据不合法"
 }
 ```
 
@@ -630,6 +638,6 @@ Body: {
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 1002 | Data does not exist. | Data does not exist. |
-| 9999 | Data is not valid. | The return error code contains multiple messages. For example: The taxpayer with the identification number 111222333456333 has not enabled VAT electronic normal invoices, and this function is currently unavailable. |
+| 1002 | 数据不存在 / Data does not exist | 对应数据不存在 |
+| 9999 | 数据不合法 / Data is not valid | 错误信息包含具体详情，如：纳税人识别号 111222333456333 未启用增值税电子普通发票，暂不可用该功能 |
 

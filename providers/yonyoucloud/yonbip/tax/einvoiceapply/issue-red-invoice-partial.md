@@ -121,15 +121,23 @@ Body: {
 }
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。0000: 成功；其他: 失败 |
+| msg | string | 返回消息描述 |
+| data | string/object | 业务数据 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "0000",
-	"msg": "操作成功",
-	"data": ""
+    "code": "0000",
+    "msg": "操作成功",
+    "data": ""
 }
 ```
 
@@ -137,8 +145,8 @@ Body: {
 
 ```json
 {
-	"code": "1001",
-	"msg": "价税合计必须小于0"
+    "code": "1001",
+    "msg": "价税合计必须小于0"
 }
 ```
 
@@ -146,6 +154,5 @@ Body: {
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 1001 | The total amount including tax must be less than 0 | Please confirm the total amount including tax |
-| 1001 | The total amount including tax must be less than 0 | Please confirm the total amount including tax |
+| 1001 | 价税合计必须小于0 / The total amount including tax must be less than 0 | 红字发票的价税合计应为负数，请确认金额是否正确 |
 

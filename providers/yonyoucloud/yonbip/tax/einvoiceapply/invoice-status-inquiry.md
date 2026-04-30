@@ -26,13 +26,11 @@
 | --- | --- | --- | --- |
 | access_token | string | 是 | 接口令牌 access_token |
 
-### Body 参数（Top Level）
+### Body 参数
 
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| fpqqlsh | string | 是 | 发票请求流水号，由开票申请时传入的流水号 |
 
 ## 请求示例
 
@@ -43,20 +41,48 @@ Body: {
 }
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200/0000: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
+| data.fpqqlsh | string | 发票请求流水号 |
+| data.statuscode | string | 发票状态码。0: 未开票；1: 待开票；2: 开票中；3: 开票失败；4: 开票成功 |
+| data.status | string | 发票状态中文描述 |
+| data.bsstatus | string | 报税状态。0: 未报税；1: 已报税 |
+| data.errmsg | string | 错误信息（开票失败时返回失败原因） |
+| data.fpDm | string | 发票代码（开票成功后返回） |
+| data.fpHm | string | 发票号码（开票成功后返回） |
+| data.pdf | string | 电子发票PDF下载URL（开票成功后返回） |
+| data.kprq | string | 开票日期（开票成功后返回），格式 yyyyMMddHHmmss |
 
 ### 正确返回
 
 ```json
-
+{
+    "code": "200",
+    "message": "操作成功",
+    "data": {
+        "fpqqlsh": "1354466355222",
+        "statuscode": "4",
+        "status": "开票成功",
+        "bsstatus": "1",
+        "fpDm": "011111111007",
+        "fpHm": "03197858",
+        "kprq": "20220429233242"
+    }
+}
 ```
 
 ### 错误返回
 
 ```json
 {
- "code": "1002",
- "message": "数据不存在"
+    "code": "1002",
+    "message": "数据不存在"
 }
 ```
 
@@ -64,5 +90,5 @@ Body: {
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 1002 | Data does not exist | Modify according to the instructions |
+| 1002 | 数据不存在 / Data does not exist | 该发票请求流水号对应的开票数据不存在，请确认流水号是否正确 |
 

@@ -28,11 +28,9 @@
 
 ### Body 参数（Top Level）
 
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| fpqqlshs | string | 是 | 发票请求流水号数组的 JSON 字符串，格式: `["流水号1","流水号2",...]`，单次最多查询 20 条 |
 
 ## 请求示例
 
@@ -40,25 +38,39 @@ Body 为 JSON，顶层为 `data`。
 Url: /yonbip/tax/output-tax/api/invoiceApply/batchQueryInvoiceStatus?access_token=<ACCESS_TOKEN>&fpqqlshs=["11223344","55667788"]
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200/0000: 成功 |
+| message | string | 返回消息描述 |
+| data[].code | string | 该条记录的返回码 |
+| data[].msg | string | 该条记录的返回消息 |
+| data[].fpqqlsh | string | 发票请求流水号 |
+| data[].statuscode | string | 发票状态码。0: 未开票；1: 待开票；2: 开票中；3: 开票失败；4: 开票成功 |
+| data[].status | string | 发票状态中文描述 |
+| data[].errmsg | string | 错误信息（开票失败时返回） |
+| data[].bsstatus | string | 报税状态。0: 未报税；1: 已报税 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "200",
-	"message": "操作成功",
-	"data": [
-		{
-			"code": "0000",
-			"msg": "操作成功",
-			"fpqqlsh": "11223344",
-			"statuscode": "1",
-			"status": "待开票",
-			"errmsg": "税控设备错误",
-			"bsstatus": "0"
-		}
-	]
+    "code": "200",
+    "message": "操作成功",
+    "data": [
+        {
+            "code": "0000",
+            "msg": "操作成功",
+            "fpqqlsh": "11223344",
+            "statuscode": "1",
+            "status": "待开票",
+            "errmsg": "税控设备错误",
+            "bsstatus": "0"
+        }
+    ]
 }
 ```
 
@@ -66,8 +78,8 @@ Url: /yonbip/tax/output-tax/api/invoiceApply/batchQueryInvoiceStatus?access_toke
 
 ```json
 {
-	"code": "9999",
-	"message": "系统异常"
+    "code": "9999",
+    "message": "系统异常"
 }
 ```
 
@@ -75,5 +87,5 @@ Url: /yonbip/tax/output-tax/api/invoiceApply/batchQueryInvoiceStatus?access_toke
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 9999 | System Exception | Process according to the returned information |
+| 9999 | 系统异常 / System Exception | 根据返回的具体错误信息进行处理 |
 

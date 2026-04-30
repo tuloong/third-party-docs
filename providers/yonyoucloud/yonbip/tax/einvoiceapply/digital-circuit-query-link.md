@@ -24,17 +24,9 @@
 
 | 名称 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| xsfNsrsbh | string | 是 | Seller Taxpayer Identification Number |
-| allElcUserName | string | 是 | Digital Circuit Login Name |
-| fplx | string | 是 | Invoice Type 33: Digital Paper Invoice (VAT Special Invoice) Invoice Type 34: Digital Paper Invoice (Normal Invoice) |
-
-### Body 参数（Top Level）
-
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| xsfNsrsbh | string | 是 | 销售方纳税人识别号 |
+| allElcUserName | string | 是 | 数电发票登录用户名（国密四密文） |
+| fplx | string | 是 | 发票类型。33: 数电纸质发票(增值税专用发票)；34: 数电纸质发票(普通发票) |
 
 ## 请求示例
 
@@ -42,14 +34,21 @@ Body 为 JSON，顶层为 `data`。
 Url: /yonbip/tax/api/etaxAuth/zp/lianci?access_token=<ACCESS_TOKEN>&xsfNsrsbh=125453322&allElcUserName=username&fplx=33
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。0000: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "0000",
-	"message": "操作成功"
+    "code": "0000",
+    "message": "操作成功"
 }
 ```
 
@@ -57,8 +56,8 @@ Url: /yonbip/tax/api/etaxAuth/zp/lianci?access_token=<ACCESS_TOKEN>&xsfNsrsbh=12
 
 ```json
 {
-	"code": "1001",
-	"message": "税号、用户、发票类型不能为空"
+    "code": "1001",
+    "message": "税号、用户、发票类型不能为空"
 }
 ```
 
@@ -66,7 +65,7 @@ Url: /yonbip/tax/api/etaxAuth/zp/lianci?access_token=<ACCESS_TOKEN>&xsfNsrsbh=12
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 1001 | Tax number, User, Invoice Type cannot be empty. | Return error code |
-| 9007 | Token acquisition exception | Return error code |
-| 9999 | The agency has not yet approved the electronic paper invoice. Please contact the Tax Authority to apply. | Return error code |
+| 1001 | 税号/用户/发票类型不能为空 | 必填参数 xsfNsrsbh、allElcUserName、fplx 未传入 |
+| 9007 | Token获取异常 / Token acquisition exception | 数电发票登录凭证获取失败，检查用户名密码 |
+| 9999 | 机构尚未审批电子纸质发票 | 请联系主管税务机关申请开通电子纸质发票功能 |
 

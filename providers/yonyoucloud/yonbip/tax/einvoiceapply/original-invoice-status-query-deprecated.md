@@ -26,13 +26,11 @@
 | --- | --- | --- | --- |
 | access_token | string | 是 | 接口令牌 access_token |
 
-### Body 参数（Top Level）
+### Body 参数
 
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| fpqqlsh | string | 是 | 发票请求流水号 |
 
 ## 请求示例
 
@@ -40,7 +38,47 @@ Body 为 JSON，顶层为 `data`。
 Url: /yonbip/tax/invoiceclient-web/api/invoiceApply/queryInvoiceStatus?access_token=<ACCESS_TOKEN>
 ```
 
-## 返回示例
+## 返回参数
+
+> 此接口已废弃，请使用 [Invoice Status Inquiry](invoice-status-inquiry.md)
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200: 成功 |
+| message | string | 返回消息描述 |
+| data.fpqqlsh | string | 发票请求流水号 |
+| data.statuscode | string | 发票状态码。0: 未开票；1: 待开票；2: 开票中；3: 开票失败；4: 开票成功 |
+| data.status | string | 发票状态中文描述 |
+| data.errmsg | string | 错误信息/失败原因 |
+| data.invoiceDetail | object | 发票详情（开票成功后返回） |
+
+#### data.invoiceDetail 主要字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| fpqqlsh | string | 发票请求流水号 |
+| fpDm | string | 发票代码 |
+| fpHm | string | 发票号码 |
+| fplx | string | 发票类型 |
+| pdf | string | PDF文件Base64数据 |
+| kprq | string | 开票日期，格式 yyyyMMddHHmmss |
+| kpr | string | 开票人 |
+| skr | string | 收款人 |
+| fhr | string | 复核人 |
+| jshj | number | 价税合计 |
+| hjje | number | 合计金额 |
+| hjse | number | 合计税额 |
+| bz | string | 备注 |
+| xsfNsrsbh | string | 销售方纳税人识别号 |
+| xsfMc | string | 销售方名称 |
+| gmfNsrsbh | string | 购买方纳税人识别号 |
+| gmfMc | string | 购买方名称 |
+| zsfs | string | 征收方式 |
+| items | array | 发票明细行列表 |
+| shareurl | string | 分享URL |
+| fileType | string | 文件类型，如 pdf |
 
 ### 正确返回
 
@@ -161,6 +199,5 @@ Url: /yonbip/tax/invoiceclient-web/api/invoiceApply/queryInvoiceStatus?access_to
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 1002 | Data does not exist | Solve according to the prompt code |
-| 1002 | Data does not exist | Solve according to the prompt code |
+| 1002 | 数据不存在 / Data does not exist | 该流水号对应的发票数据在系统中不存在 |
 

@@ -106,22 +106,30 @@ requestdatas=[{
 &autoAudit="自动审核，即不需要人工在发票平台确认开票，直接进行开票 false:不自动审核，即需要人工确认如果不传，代表true"
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200/0000: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "200",
-	"message": "success"
+    "code": "200",
+    "message": "success"
 }
 ```
 
 ### 错误返回
 
 ```json
-{ "code":"9999",
-   "message":"数据保存失败，销售方纳税人识别号与税控组织对应的纳税人识别号不匹配!"
+{
+    "code": "9999",
+    "message": "数据保存失败，销售方纳税人识别号与税控组织对应的纳税人识别号不匹配!"
 }
 ```
 
@@ -129,7 +137,7 @@ requestdatas=[{
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 9999 | Unknown error | System error, contact administrator. |
-| 1002 | Data does not exist. | The red-invoice does not exist in the tax cloud. |
-| 1001 | Data is invalid. Input parameter. | The data input format is not valid and may not be in JSON format. |
+| 1001 | 参数校验不通过 / Data is invalid | 数据输入格式不是合法的 JSON 格式 |
+| 1002 | 数据不存在 / Data does not exist | 该红字发票在税控云中不存在 |
+| 9999 | 系统错误 / Unknown error | 如：销售方纳税人识别号与税控组织不匹配 |
 

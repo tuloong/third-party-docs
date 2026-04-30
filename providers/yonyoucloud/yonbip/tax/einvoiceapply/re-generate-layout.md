@@ -24,16 +24,15 @@
 
 | 名称 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| fpDm | string | 否 | Invoice Code |
-| fpHm | string | 是 | Invoice Number |
+| fpDm | string | 否 | 发票代码 |
+| fpHm | string | 是 | 发票号码 |
 
-### Body 参数（Top Level）
+### Body 参数
 
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| fpDm | string | 否 | 发票代码（可通过 Query 参数或 Body 传入） |
+| fpHm | string | 是 | 发票号码（可通过 Query 参数或 Body 传入） |
 
 ## 请求示例
 
@@ -41,14 +40,21 @@ Body 为 JSON，顶层为 `data`。
 Url: /yonbip/tax/api/invoiceApply/bsRestartCreate?access_token=<ACCESS_TOKEN>&fpDm=555251545&fpHm=621545
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。0000: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "0000",
-	"message": "操作成功"
+    "code": "0000",
+    "message": "操作成功"
 }
 ```
 
@@ -56,8 +62,8 @@ Url: /yonbip/tax/api/invoiceApply/bsRestartCreate?access_token=<ACCESS_TOKEN>&fp
 
 ```json
 {
-	"code": "1001",
-	"message": "发票号码不能为空"
+    "code": "1001",
+    "message": "发票号码不能为空"
 }
 ```
 
@@ -65,6 +71,6 @@ Url: /yonbip/tax/api/invoiceApply/bsRestartCreate?access_token=<ACCESS_TOKEN>&fp
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 1001 | Invoice number cannot be empty. | Return error code |
-| 1002 | This invoice does not exist. | Return error code |
+| 1001 | 发票号码不能为空 / Invoice number cannot be empty | 必填参数 fpHm 未传入 |
+| 1002 | 该发票不存在 / This invoice does not exist | 对应的发票代码号码在系统中不存在 |
 

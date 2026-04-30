@@ -24,15 +24,7 @@
 
 | 名称 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| xmmc | string | 是 | Product Name |
-
-### Body 参数（Top Level）
-
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| xmmc | string | 是 | 商品名称，用于 AI 智能匹配税收分类编码 |
 
 ## 请求示例
 
@@ -40,46 +32,65 @@ Body 为 JSON，顶层为 `data`。
 Url: /yonbip/tax/api/etax/aiMatchSpInfo?access_token=<ACCESS_TOKEN>&xmmc=水果
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200: 成功 |
+| message | string | 返回消息描述 |
+| datas | array | 匹配结果列表 |
+
+#### datas[] 字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| spsjbm | string | 商品税收分类编码 |
+| spfwjc | string | 商品税收分类简称 |
+| hwhlwmc | string | 货物或劳务名称 |
+| zzsslhzzsl | string | 增值税税率/征收率，如 13% |
+| slvList | array | 可选税率列表 |
+| zslList | array | 可选征收率列表 |
+| zzstsglList | array | 适用优惠政策列表 |
+| zzsczezsbj | string | 是否增值税差额征税标记。Y: 是；N: 否 |
+| sfhzx | string | 是否汇总项。Y: 是；N: 否 |
+| sfbzsbz | string | 是否不征收标准编码。Y: 是；N: 否 |
+| zt | string | 状态。Y: 有效 |
+| qyrq | string | 启用日期 |
+| hyjh | string | 行业聚合码 |
+| sm | string | 说明 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "200",
-	"message": "智能赋码成功",
-	"datas": [
-		{
-			"slvList": [
-				"0.13"
-			],
-			"spsjbm": "1030206000000000000",
-			"zzscezsbj": "N",
-			"spfwjc": "调味品",
-			"qyrq": "2019-04-01",
-			"sphfwssflhbbm": "1030206030000000000",
-			"sfhzx": "N",
-			"sfbzsbz": "N",
-			"zslList": [
-				"0.03"
-			],
-			"sm": "",
-			"zt": "Y",
-			"zzsslhzzsl": "13%",
-			"zzstsglList": [
-				"简易征收"
-			],
-			"zsljh": "3%",
-			"hyjh": "140603",
-			"hwhlwmc": "醋及醋代用品"
-		}
-	]
+    "code": "200",
+    "message": "智能赋码成功",
+    "datas": [
+        {
+            "spsjbm": "1030206000000000000",
+            "spfwjc": "调味品",
+            "hwhlwmc": "醋及醋代用品",
+            "zzsslhzzsl": "13%",
+            "slvList": ["0.13"],
+            "zslList": ["0.03"],
+            "zzstsglList": ["简易征收"],
+            "zzsczezsbj": "N",
+            "sfhzx": "N",
+            "sfbzsbz": "N",
+            "zt": "Y",
+            "qyrq": "2019-04-01",
+            "hyjh": "140603",
+            "sm": ""
+        }
+    ]
 }
 ```
 
 ### 错误返回
 
 ```json
-
+{}
 ```
 

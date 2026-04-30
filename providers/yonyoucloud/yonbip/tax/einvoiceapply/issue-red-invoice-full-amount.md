@@ -121,15 +121,23 @@ Body: {
 }
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200/0000: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
+| data | string/object | 业务数据 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "200",
-	"message": "success",
-	"data": "操作成功"
+    "code": "200",
+    "message": "success",
+    "data": "操作成功"
 }
 ```
 
@@ -137,11 +145,8 @@ Body: {
 
 ```json
 {
-
-	"code": "1001",
-
-	"message": "价税合计必须小于0"
-
+    "code": "1001",
+    "message": "价税合计必须小于0"
 }
 ```
 
@@ -149,6 +154,6 @@ Body: {
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 1001 | The total amount including tax must be less than 0 | Please confirm the total amount including tax. |
-| 1001 | The total amount including tax must be less than 0 | Please confirm the total amount including tax. |
+| 1001 | 价税合计必须小于0 / The total amount including tax must be less than 0 | 红字发票的价税合计应为负数，请确认金额是否正确 |
+| 9999 | 数据保存失败，销售方纳税人识别号不匹配 | 传入的销售方纳税人识别号与税控组织不一致 |
 

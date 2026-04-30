@@ -26,13 +26,19 @@
 | --- | --- | --- | --- |
 | access_token | string | 是 | 接口令牌 access_token |
 
-### Body 参数（Top Level）
+### Body 参数
 
-Body 为 JSON，顶层为 `data`。
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| requestdatas | string | 是 | JSON 数组字符串，包含以下字段： |
 
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
+#### requestdatas[] 字段
 
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| FPQQLSH | string | 是 | 发票请求流水号 |
+| XSF_NSRSBH | string | 是 | 销售方纳税人识别号 |
+| JSHJ | number | 是 | 价税合计金额 |
 
 ## 请求示例
 
@@ -45,14 +51,21 @@ requestdatas=[{
 }]
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200/0000: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "200",
-	"message": "success"
+    "code": "200",
+    "message": "success"
 }
 ```
 
@@ -60,8 +73,8 @@ requestdatas=[{
 
 ```json
 {
-	"code": "1001",
-	"message": "流水号为：07646104238312188144的确认审核的发票不是待开发票！"
+    "code": "1001",
+    "message": "流水号为：07646104238312188144的确认审核的发票不是待开发票！"
 }
 ```
 
@@ -69,5 +82,5 @@ requestdatas=[{
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 1001 | The invoice with serial number: 07646104238312188144 is not a pending invoice for confirmation review. | Please confirm whether the invoice is in a pending billing status. |
+| 1001 | 该流水号的发票不是待开发票 | 只有状态为"待开票"的发票申请才能提交审核，请确认发票当前状态 |
 

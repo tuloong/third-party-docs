@@ -26,13 +26,11 @@
 | --- | --- | --- | --- |
 | access_token | string | 是 | 接口令牌 access_token |
 
-### Body 参数（Top Level）
+### Body 参数
 
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| requestdatas | string | 是 | JSON 字符串，包含 fpqqlsh（发票请求流水号），用于指定要退回的开票申请 |
 
 ## 请求示例
 
@@ -40,14 +38,21 @@ Body 为 JSON，顶层为 `data`。
 Url: /yonbip/tax/invoiceclient-web/api/invoiceApply/del?access_token=<ACCESS_TOKEN>
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200/0000: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "200",
-	"message": "操作成功"
+    "code": "200",
+    "message": "操作成功"
 }
 ```
 
@@ -55,8 +60,8 @@ Url: /yonbip/tax/invoiceclient-web/api/invoiceApply/del?access_token=<ACCESS_TOK
 
 ```json
 {
-	"code": "9999",
-	"message": "开票状态不是待开票或者开票失败,对应的发票请求流水号:26671033302026544154"
+    "code": "9999",
+    "message": "开票状态不是待开票或者开票失败,对应的发票请求流水号:26671033302026544154"
 }
 ```
 
@@ -64,5 +69,5 @@ Url: /yonbip/tax/invoiceclient-web/api/invoiceApply/del?access_token=<ACCESS_TOK
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 9999 | The invoice status is neither pending invoicing nor invoicing failed, corresponding to the invoice request serial number. | Modify according to the prompt information. |
+| 9999 | 开票状态不是待开票或开票失败 | 只能退回状态为"待开票"或"开票失败"的开票申请，请确认发票当前状态 |
 

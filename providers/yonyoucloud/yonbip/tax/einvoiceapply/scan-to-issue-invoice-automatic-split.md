@@ -24,15 +24,13 @@
 
 | 名称 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| xcx | string | 否 | Is it from the Mini Program? Y: Yes; N: No |
+| xcx | string | 否 | 是否来自小程序。Y: 是；N: 否 |
 
-### Body 参数（Top Level）
+### Body 参数
 
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| requestdatas | string | 是 | JSON 字符串，字段结构与扫码开票（scan-to-issue-invoice）的 body 一致，支持自动拆分 |
 
 ## 请求示例
 
@@ -43,14 +41,21 @@ Body: {
 }
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。0000: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "0000",
-	"message": "操作成功"
+    "code": "0000",
+    "message": "操作成功"
 }
 ```
 
@@ -58,8 +63,8 @@ Body: {
 
 ```json
 {
-	"code": "0000",
-	"message": "待开票信息为空"
+    "code": "0000",
+    "message": "待开票信息为空"
 }
 ```
 
@@ -67,6 +72,6 @@ Body: {
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 0000 | Invoicing Information is empty. | Return error code |
-| 9999 | Error occurred while generating the QR code for invoicing. | Return error code |
+| 0000 | 待开票信息为空 / Invoicing Information is empty | 传入的 requestdatas 为空或格式错误 | 
+| 9999 | 二维码生成异常 / Error occurred while generating the QR code | 根据返回的错误信息进行排查 |
 

@@ -26,13 +26,11 @@
 | --- | --- | --- | --- |
 | access_token | string | 是 | 接口令牌 access_token |
 
-### Body 参数（Top Level）
+### Body 参数
 
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| fpqqlsh | string | 是 | 发票请求流水号，需为开票失败状态的流水号 |
 
 ## 请求示例
 
@@ -41,14 +39,21 @@ Url: /yonbip/tax/invoiceclient-web/api/invoiceApply/deleteInvoiceFailData?access
 fpqqlsh="123456788"
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200/0000: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "200",
-	"message": "操作成功"
+    "code": "200",
+    "message": "操作成功"
 }
 ```
 
@@ -56,8 +61,8 @@ fpqqlsh="123456788"
 
 ```json
 {
-	"code": "9999",
-	"message": "删除失败,要删除的数据不是开票失败状态,不允许删除."
+    "code": "9999",
+    "message": "删除失败,要删除的数据不是开票失败状态,不允许删除."
 }
 ```
 
@@ -65,5 +70,5 @@ fpqqlsh="123456788"
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 9999 | Deletion failed, the data to be deleted is not in the invoicing failure status, deletion is not allowed. | Please confirm the accuracy of the data. |
+| 9999 | 删除失败，数据非开票失败状态 | 只能删除状态为"开票失败"的发票请求，请确认发票当前状态 |
 

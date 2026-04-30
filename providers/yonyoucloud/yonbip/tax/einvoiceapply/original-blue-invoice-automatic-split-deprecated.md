@@ -596,15 +596,53 @@ requestdatas=[ {
  }]
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200/0000: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
+| data | object | 业务数据，包含拆分后的开票申请信息 |
+
+#### data 主要字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| fpqqlsh | string | 发票请求流水号 |
+| fpzt | string | 发票状态。0: 待开票 |
+| fplx | string | 发票类型 |
+| fpjz | string | 是否发票记账。0: 否 |
+| jshj | number | 价税合计 |
+| hjje | number | 合计金额 |
+| hjse | number | 合计税额 |
+| bz | string | 备注 |
+| bmbBbh | string | 编码表版本号 |
+| kpr | string | 开票人 |
+| skr | string | 收款人 |
+| fhr | string | 复核人 |
+| kplx | string | 开票类型。0: 正常 |
+| zsfs | string | 征收方式 |
+| orgcode | string | 开票点编码 |
+| zdrq | string | 制单日期 |
+| lylx | string | 来源类型 |
+| xsfDzdh | string | 销售方地址电话 |
+| xsfYhzh | string | 销售方银行账号 |
+| gmfMc | string | 购买方名称 |
+| gmfNsrsbh | string | 购买方纳税人识别号 |
+| gmfDzdh | string | 购买方地址电话 |
+| gmfYhzh | string | 购买方银行账号 |
+| splitInvoice | boolean | 是否已拆分 |
+| items | array | 发票明细行列表 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "200",
-	"message": "success",
-	"data": {
+    "code": "200",
+    "message": "success",
+    "data": {
 		"bmbBbh": "13.0",
 		"bz": "BZSHY",
 		"corpId": "9bf8bdc0-0647-4863-8c04-4c24c3487827",
@@ -670,7 +708,7 @@ requestdatas=[ {
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 9999 | Unknown error | Unknown error |
-| 1002 | Data does not exist. | Data does not exist. |
-| 1001 | Data is invalid, input parameter. | Data is invalid, input parameter. |
+| 1001 | 参数校验不通过 / Data is invalid | 检查传入参数格式是否正确 |
+| 1002 | 数据不存在 / Data does not exist | 对应数据不存在 |
+| 9999 | 系统错误 / Unknown error | 如：销售方纳税人识别号与税控组织不匹配 |
 

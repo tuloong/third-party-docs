@@ -26,13 +26,12 @@
 | --- | --- | --- | --- |
 | access_token | string | 是 | 接口令牌 access_token |
 
-### Body 参数（Top Level）
+### Body 参数
 
-Body 为 JSON，顶层为 `data`。
-
-该接口在详情接口中未返回可解析的 Body 顶层字段（可参考页面展示与请求示例）。
-
-更完整的字段明细在详情接口的 `data.paramDTOS` 中（字段较多，建议自动化解析后按需落库）。
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| fplx | string | 是 | 发票类型。1: 增值税电子普通发票；2: 增值税电子专用发票；3: 增值税普通发票；4: 增值税专用发票；5: 机动车销售统一发票；等等 |
+| orgCode | string | 是 | 开票点编码（组织编码） |
 
 ## 请求示例
 
@@ -44,18 +43,27 @@ Body: {
 }
 ```
 
-## 返回示例
+## 返回参数
+
+### 返回字段
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| code | string | 返回码。200: 成功；其他: 失败 |
+| message | string | 返回消息描述 |
+| data.fpHm | string | 预生成的发票号码 |
+| data.fpDm | string | 预生成的发票代码 |
 
 ### 正确返回
 
 ```json
 {
-	"code": "200",
-	"message": "success",
-	"data": {
-		"fpHm": "发票号码",
-		"fpDm": "发票代码"
-	}
+    "code": "200",
+    "message": "success",
+    "data": {
+        "fpHm": "03197858",
+        "fpDm": "011111111007"
+    }
 }
 ```
 
@@ -72,5 +80,5 @@ Body: {
 
 | 错误码 | 错误信息 | 说明 |
 | --- | --- | --- |
-| 9999 | System encountered an unexpected error. | Modify and troubleshoot based on the returned error message. |
+| 9999 | 系统异常 / System encountered an unexpected error | 根据返回的错误信息排查，或联系管理员查看日志 |
 
