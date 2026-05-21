@@ -17,6 +17,8 @@
 - 请求方法：POST
 - Content-Type：application/json
 - 接口路径：/yonbip/tax/invoiceclient-web/api/invoiceApply/insertWithJsonArray
+- 完整调用地址：https://c2.yonyoucloud.com/iuap-api-gateway/yonbip/tax/invoiceclient-web/api/invoiceApply/insertWithJsonArray
+- 鉴权方式：access_token 作为 Query 参数传递（?access_token=）
 
 ## 请求参数
 
@@ -48,12 +50,12 @@ Body 为 JSON，顶层为 `data`。
 | 字段 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | orgcode | string | 条件必填 | 开票点编码。当同一税号有多个开票点时必填，用于确定唯一开票点 |
-| lyid | string | 否 | 请求来源唯一标识，用于追踪请求 |
-| fpqqlsh | string | 是 | 发票请求流水号，由调用方生成，需保证唯一性 |
+| lyid | string | 是 | 请求来源唯一标识（来源单据主键ID），用于追踪请求 |
+| fpqqlsh | string | 是 | 发票请求流水号，由调用方生成，需保证唯一性，唯一标识一张发票 |
 | fplx | string | 否 | 发票类型。1: 增值税电子普通发票；2: 增值税电子专用发票；3: 增值税普通发票；4: 增值税专用发票；5: 机动车销售统一发票；8: 增值税电子普通发票(成品油)；10: 成品油普通发票；11: 成品油专用发票；15: 二手车销售统一发票；31: 数电专用发票；32: 数电普通发票；33: 数电纸质发票(增值税专用发票)；34: 数电纸质发票(普通发票)。默认为 1 |
-| sdLc | string | 否 | 税点轮次 |
-| tspz | string | 条件必填 | 特殊票种代码。E03: 建筑服务；E04: 货物运输服务；E05: 不动产销售；E06: 不动产租赁；E07: 代收车船税；E09: 旅客运输服务；E22: 成品油。特殊票种必填 |
-| zsfs | string | 否 | 征收方式。0: 普通征收；1: 差额征收-全额开票；2: 差额征收-差额开票；3: 差额征收-全额开票 |
+| sdLc | string | 否 | 数电纸质发票联次信息。04: 2016版增值税普通发票(二联)；05: 2016版增值税普通发票(五联)；000008101500: 2008版增值税普通发票(五联无限制)；1130: 增值税专用发票(中文三联无限制) |
+| tspz | string | 条件必填 | 特殊票种代码。0: 一般；2: 成品油增值税专用发票；8: 农产品销售；9: 农产品收购；11: 烟草；12: 机动车发票；14: 成品油发票；DK: 代办发票；16: 矿产品；E01: 成品油；E02: 稀土；E03: 建筑服务；E04: 货物运输服务；E05: 不动产销售；E06: 不动产经营租赁；E07: 代收车船税；E09: 旅客运输服务；E12: 自产农产品销售；E14: 机动车；E16: 农产品收购；E17: 光伏收购；E18: 卷烟；E22: 电子行程单；E32: 电子烟。E 前缀为全电化数电票特殊票种。特殊票种必填 |
+| zsfs | string | 否 | 征收方式。0: 普通征收；2: 差额征收-差额开票；3: 差额征收-全额开票 |
 
 #### data.einvoiceApplyList[] 销售方信息
 
@@ -61,7 +63,7 @@ Body 为 JSON，顶层为 `data`。
 | --- | --- | --- | --- |
 | xsfNsrsbh | string | 是 | 销售方纳税人识别号 |
 | xsfMc | string | 否 | 销售方名称 |
-| xsfDzdh | string | 否 | 销售方地址、电话（合并字段） |
+| xsfDzdh | string | 否 | 销售方地址、电话（合并字段）。为空则使用开票平台配置信息；电子行程单票种必填 |
 | xsfDz | string | 否 | 销售方地址（拆分字段） |
 | xsfDh | string | 否 | 销售方电话（拆分字段） |
 | xsfYh | string | 否 | 销售方开户银行 |
@@ -72,13 +74,13 @@ Body 为 JSON，顶层为 `data`。
 | 字段 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | gmfNsrsbh | string | 否 | 购买方纳税人识别号 |
-| gmfMc | string | 是 | 购买方名称 |
-| gmfDzdh | string | 否 | 购买方地址、电话（合并字段） |
-| gmfDz | string | 否 | 购买方地址（拆分字段） |
-| gmfDh | string | 否 | 购买方电话（拆分字段） |
-| gmfYhzh | string | 否 | 购买方银行、账号（合并字段） |
-| gmfYh | string | 否 | 购买方开户银行（拆分字段） |
-| gmfZh | string | 否 | 购买方银行账号（拆分字段） |
+| gmfMc | string | 否 | 购买方名称 |
+| gmfDzdh | string | 否 | 购买方地址、电话（合并字段，数电发票非必填） |
+| gmfDz | string | 否 | 购买方地址（数电发票拆分字段） |
+| gmfDh | string | 否 | 购买方电话（数电发票拆分字段） |
+| gmfYhzh | string | 否 | 购买方银行、账号（合并字段，数电发票非必填） |
+| gmfYh | string | 否 | 购买方开户银行（数电发票拆分字段） |
+| gmfZh | string | 否 | 购买方银行账号（数电发票拆分字段） |
 
 #### data.einvoiceApplyList[] 人员信息
 
@@ -92,9 +94,9 @@ Body 为 JSON，顶层为 `data`。
 
 | 字段 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| hjje | number | 否 | 合计金额（不含税） |
-| hjse | number | 否 | 合计税额 |
-| jshj | number | 是 | 价税合计 |
+| hjje | number | 否 | 合计金额（不含税），最大 15 位整数 + 2 位小数 |
+| hjse | number | 否 | 合计税额，最大 15 位整数 + 2 位小数 |
+| jshj | number | 是 | 价税合计，最大 15 位整数 + 2 位小数 |
 | bz | string | 否 | 备注 |
 
 #### data.einvoiceApplyList[] 扩展/标识字段
@@ -113,12 +115,14 @@ Body 为 JSON，顶层为 `data`。
 | zjlx | string | 否 | 证件类型代码 |
 | zjhm | string | 否 | 证件号码 |
 | guoji | string | 否 | 国籍代码（如 004: 中国） |
-| dfgtgmbz | string | 否 | 代发个体挂牌标志。Y: 是 |
-| einvoiceShowGxfYhZh | string | 否 | 是否显示购买方银行账号。0: 否；1: 是 |
-| einvoiceShowSkrShr | string | 否 | 是否显示收款人/复核人。0: 否；1: 是 |
-| einvoiceShowGxfDzDh | string | 否 | 是否显示购买方地址电话。0: 否；1: 是 |
-| sgbz | string | 否 | 手工标志 |
-| cpyqylb | string | 否 | 成品油企业类别（成品油票种专用） |
+| dfgtgmbz | string | 否 | 多方联合代开标志。Y: 是；N: 否 |
+| einvoiceShowGxfYhZh | string | 否 | 是否显示购销方银行账号。0: 均不显示；1: 仅显示销售方；2: 仅显示购买方；3: 均显示 |
+| einvoiceShowSkrShr | string | 否 | 是否显示收款人/复核人。0: 均不显示；1: 仅显示收款人；2: 仅显示复核人；3: 均显示 |
+| einvoiceShowGxfDzDh | string | 否 | 是否显示购销方地址电话。0: 均不显示；1: 仅显示销售方；2: 仅显示购买方；3: 均显示 |
+| sgbz | string | 否 | 认领标志 |
+| cpyqylb | string | 否 | 发票领用票量类别（成品油票种专用） |
+| gjql | string | 否 | 国际区联 |
+| gzwhjhff | string | 否 | 故障维护计划方法 |
 
 #### data.einvoiceApplyList[] 数电发票专用字段
 
@@ -244,7 +248,7 @@ Body 为 JSON，顶层为 `data`。
 | 字段 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | xh | number | 是 | 序号 |
-| pzlx | string | 是 | 凭证类型。01: 数电票；02: 增值税专用发票；03: 增值税普通发票；04: 营业税发票；05: 财政票据；06: 法院裁决书；07: 契税完税凭证；08: 其他发票类；09: 其他扣除凭证 |
+| pzlx | string | 是 | 凭证类型。10: 增值税专用发票；11: 增值税普通发票；12: 海关进口增值税专用缴款书；13: 航空运输电子客票行程单；14: 铁路电子客票；15: 契税完税凭证；16: 中央非税收入统一票据(土地出让金)；05: 财政票据；06: 法院裁决书；09: 其他扣除凭证。注：旧编码 01-08 已于 2025-12-30 停用 |
 | fphm | string | 条件必填 | 全电发票号码（凭证类型为01时填写） |
 | fpdm | string | 条件必填 | 非全电发票代码 |
 | zzfphm | string | 条件必填 | 非全电发票号码 |

@@ -5,6 +5,8 @@
 ## 文档索引
 
 - 开放平台接入：获取调用接口令牌 access_token：[access_token.md](./open-platform/access_token.md)
+- YonBIP 认证模块完整对接文档：[docs/yonbip-auth-integration.md](../../docs/yonbip-auth-integration.md)
+- 企业自建应用开发流程验证文档：[docs/yonyou-open-platform-dev-flow-verification.md](../../docs/yonyou-open-platform-dev-flow-verification.md)
 - YonBIP 税务服务 · 开票申请（EinvoiceApply）：[README.md](./yonbip/tax/einvoiceapply/README.md)
 
 ## YonBIP · 税务服务 · 开票申请（EinvoiceApply）

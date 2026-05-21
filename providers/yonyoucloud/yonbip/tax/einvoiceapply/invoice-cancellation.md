@@ -17,6 +17,9 @@
 - 请求方法：POST
 - Content-Type：application/json
 - 接口路径：/yonbip/tax/invoiceclient-web/api/invoiceApply/invalidWithJson
+- 完整调用地址：https://c2.yonyoucloud.com/iuap-api-gateway/yonbip/tax/invoiceclient-web/api/invoiceApply/invalidWithJson
+- 鉴权方式：access_token 作为 Query 参数传递（?access_token=）
+- 功能说明：根据发票代码和发票号码作废纸质发票（增值税专用发票、普通发票、机动车销售统一发票）。数电纸质发票和税控纸质发票可作废；电子发票不可作废，只能红冲。
 
 ## 请求参数
 
@@ -36,7 +39,7 @@
 ## 请求示例
 
 ```text
-Url: /yonbip/tax//api/invoiceApply/invalidWithJson?access_token=<ACCESS_TOKEN>  
+Url: /yonbip/tax/invoiceclient-web/api/invoiceApply/invalidWithJson?access_token=<ACCESS_TOKEN>  
 Body: {
 	"fpHm": "1222263555",
 	"fpDm": "1225222"

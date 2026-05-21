@@ -17,6 +17,8 @@
 - 请求方法：POST
 - Content-Type：application/json
 - 接口路径：/yonbip/tax/api/invoiceApply/qr-with-split
+- 完整调用地址：https://c2.yonyoucloud.com/iuap-api-gateway/yonbip/tax/api/invoiceApply/qr-with-split
+- 鉴权方式：access_token 作为 Query 参数传递（?access_token=）
 
 ## 请求参数
 
@@ -24,6 +26,7 @@
 
 | 名称 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
+| access_token | string | 是 | 接口令牌（平台鉴权机制，由网关统一附加） |
 | xcx | string | 否 | 是否来自小程序。Y: 是；N: 否 |
 
 ### Body 参数

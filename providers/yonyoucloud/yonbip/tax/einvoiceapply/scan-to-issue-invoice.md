@@ -17,6 +17,8 @@
 - 请求方法：POST
 - Content-Type：application/json
 - 接口路径：/yonbip/tax/invoiceclient-web/api/invoiceApply/insertForQRInvoice
+- 完整调用地址：https://c2.yonyoucloud.com/iuap-api-gateway/yonbip/tax/invoiceclient-web/api/invoiceApply/insertForQRInvoice
+- 鉴权方式：access_token 作为 Query 参数传递（?access_token=）
 
 ## 请求参数
 
@@ -35,16 +37,16 @@
 | 字段 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | XSF_NSRSBH | string | 是 | 销售方纳税人识别号 |
-| FPQQLSH | string | 是 | 发票请求流水号 |
-| FPLX | string | 否 | 发票类型，参考蓝字发票 fplx 枚举 |
-| JSHJ | number | 是 | 价税合计 |
+| FPQQLSH | string | 否 | 发票请求流水号 |
+| FPLX | string | 否 | 发票类型。1: 增值税电子普通发票；2: 增值税电子专用发票；3: 增值税普通发票；4: 增值税专用发票；5: 机动车销售统一发票；8: 增值税电子普通发票(成品油)；10: 成品油普通发票；11: 成品油专用发票；15: 二手车销售统一发票；31: 数电专用发票；32: 数电普通发票；33: 数电纸质发票(增值税专用发票)；34: 数电纸质发票(普通发票)；35: 全电发票(航空运输电子客票行程单)；36: 全电纸质发票(机动车销售统一发票) |
+| JSHJ | number | 是 | 价税合计，最大 17 位整数 + 2 位小数 |
 | HJJE | number | 否 | 合计金额（不含税） |
 | HJSE | number | 否 | 合计税额 |
 | BZ | string | 否 | 备注 |
 | LYID | string | 否 | 来源ID |
-| ORGCODE | string | 条件必填 | 开票点编码 |
+| ORGCODE | string | 是 | 开票点编码（查看开票点档案） |
 | RQSJ | string | 否 | 日期，格式 yyyy-MM-dd |
-| SHMC | string | 否 | 商户名称 |
+| SHMC | string | 是 | 商户名称 |
 | TDZZSXMBH | string | 条件必填 | 土地增值税项目编号（建筑服务/不动产票种） |
 | TSPZ | string | 条件必填 | 特殊票种代码 |
 | KDSBZ | string | 条件必填 | 是否跨地市标志。Y: 是；N: 否 |

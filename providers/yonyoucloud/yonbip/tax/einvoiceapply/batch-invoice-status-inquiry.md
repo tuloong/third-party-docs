@@ -17,6 +17,9 @@
 - 请求方法：POST
 - Content-Type：application/json
 - 接口路径：/yonbip/tax/output-tax/api/invoiceApply/batchQueryInvoiceStatus
+- 完整调用地址：https://c2.yonyoucloud.com/iuap-api-gateway/yonbip/tax/output-tax/api/invoiceApply/batchQueryInvoiceStatus
+- 鉴权方式：access_token 作为 Query 参数传递（?access_token=）
+- 功能说明：批量查询发票状态，单次最多查询 20 条
 
 ## 请求参数
 
@@ -24,12 +27,7 @@
 
 | 名称 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| fpqqlshs | string | 是 | JSON string of the invoice request serial number array, with a maximum of 20 queries at a time. |
-
-### Body 参数（Top Level）
-
-| 字段 | 类型 | 必填 | 说明 |
-| --- | --- | --- | --- |
+| access_token | string | 是 | 接口令牌（平台鉴权机制，由网关统一附加） |
 | fpqqlshs | string | 是 | 发票请求流水号数组的 JSON 字符串，格式: `["流水号1","流水号2",...]`，单次最多查询 20 条 |
 
 ## 请求示例
@@ -52,7 +50,7 @@ Url: /yonbip/tax/output-tax/api/invoiceApply/batchQueryInvoiceStatus?access_toke
 | data[].statuscode | string | 发票状态码。0: 未开票；1: 待开票；2: 开票中；3: 开票失败；4: 开票成功 |
 | data[].status | string | 发票状态中文描述 |
 | data[].errmsg | string | 错误信息（开票失败时返回） |
-| data[].bsstatus | string | 报税状态。0: 未报税；1: 已报税 |
+| data[].bsstatus | string | 版式状态。0: 版式生成成功；1: 版式生成失败 |
 
 ### 正确返回
 
