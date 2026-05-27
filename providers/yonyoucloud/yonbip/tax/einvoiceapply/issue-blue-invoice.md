@@ -241,7 +241,19 @@ Body 为 JSON，顶层为 `data`。
 
 #### data.einvoiceApplyList[].bdcxsTspzs（不动产销售特殊票种信息）
 
-与 tspzs 字段结构相同，用于不动产销售场景。
+源页面参数树单独定义了该对象；它不是简单复用 `tspzs`。该对象用于数电特殊票种下的不动产销售/不动产租赁场景。
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| tdzzsxmbh | string | 条件必填 | 土地增值税项目编号。数电特殊票种下，不动产销售场景必传 |
+| bdcdz | string | 条件必填 | 不动产地址。数电特殊票种下，不动产租赁场景必传；格式为“省/市/区*详细地址” |
+| zlqq | string | 条件必填 | 租赁开始日期。数电特殊票种下，不动产租赁场景必传；源页面示例格式为 `yyyy-MM-dd HH:mm:ss` |
+| zlqz | string | 条件必填 | 租赁结束日期。数电特殊票种下，不动产租赁场景必传；源页面格式为 `yyyy-MM-dd HH:mm:ss` |
+| kdsbz | string | 条件必填 | 是否跨地市。数电特殊票种下，不动产租赁/不动产销售场景必传；`Y` 表示是，`N` 表示否 |
+| cxrxh | string | 否 | 出行人序号 |
+| cqzsbh | string | 条件必填 | 产权证书编号。数电特殊票种下，不动产租赁/不动产销售场景必传 |
+| mjdw | string | 条件必填 | 面积单位。数电特殊票种下，不动产租赁/不动产销售场景必传；可选值包括 `hm²`、`km²`、`m²`、米等 |
+| cph | string | 条件必填 | 车牌号。数电特殊票种下，不动产租赁场景必传 |
 
 #### data.einvoiceApplyList[].cepzs（差额征税扣除凭证列表，差额征收方式时专用）
 
@@ -374,21 +386,15 @@ Body: {
 					"jtgjlxDm": ""
 				},
 				"bdcxsTspzs": {
-					"ysmxxh": "",
-					"ysgjzl": "",
-					"ysgjph": "",
-					"qyd": "",
-					"ddd": "",
-					"yshwmc": "",
+					"tdzzsxmbh": "",
+					"bdcdz": "",
+					"zlqq": "",
+					"zlqz": "",
+					"kdsbz": "",
 					"cxrxh": "",
-					"cxr": "",
-					"chuxrq": "",
-					"cxrzjlxDm": "",
-					"sfzjhm": "",
-					"cfd": "",
-					"lkddd": "",
-					"zwdj": "",
-					"jtgjlxDm": ""
+					"cqzsbh": "",
+					"mjdw": "",
+					"cph": ""
 				},
 				"cepzs": {
 					"xh": "",
